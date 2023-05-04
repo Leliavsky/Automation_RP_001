@@ -1,19 +1,16 @@
 package stepdefinitions;
 
+import business.pages.LoginPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.manager.PageFactoryManager;
-import org.openqa.selenium.JavascriptExecutor;
+import business.manager.PageFactoryManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.*;
 
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
-import static org.junit.Assert.*;
 
 public class DefinitionSteps {
 
