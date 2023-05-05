@@ -45,7 +45,7 @@ public class DefinitionSteps {
 
     @And("User clicks on Login button")
     public void userClicksOnLoginButton() {
-        loginPage.setLoginButton();
+        loginPage.clickLoginButton();
     }
 
     @After

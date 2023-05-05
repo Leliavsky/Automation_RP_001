@@ -32,7 +32,7 @@ public class LoginPage extends BasePage {
         passwordInput.sendKeys(password);
     }
 
-    public void setLoginButton(){
+    public void clickLoginButton(){
         loginButton.click();
     }
 }
