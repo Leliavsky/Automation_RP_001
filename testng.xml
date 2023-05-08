@@ -2,7 +2,7 @@
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="MakerSuite" allow-return-values="true" parallel="none">
+<suite name="Suite 1" allow-return-values="true" parallel="none">
 
     <!-- Test Case 1. Seller MAKER Create Import LC with dependencies -->
 
