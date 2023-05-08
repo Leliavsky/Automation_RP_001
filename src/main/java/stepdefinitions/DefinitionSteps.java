@@ -1,14 +1,16 @@
 package stepdefinitions;
 
+import business.manager.PageFactoryManager;
 import business.pages.LoginPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import business.manager.PageFactoryManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
 
