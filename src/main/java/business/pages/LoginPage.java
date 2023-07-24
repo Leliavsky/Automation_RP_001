@@ -13,13 +13,15 @@ public class LoginPage extends BasePage {
         driver.get(url);
     }
 
-    @FindBy(xpath = "//input[@name='login']")
+    @FindBy(xpath = "//input[@type='email']")
     private WebElement loginLine;
 
-    @FindBy(xpath = "//input[@name='password']")
+    @FindBy(xpath = "//*[@class='VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-k8QpJ VfPpkd-LgbsSe-OWXEXe-dgl2Hf nCP5yc AjY5Oe DuMIQc LQeN7 qIypjc TrZEUc lw1w4b']")
+    private WebElement nextButton;
+    @FindBy(xpath = "//input[@name='Passwd']")
     private WebElement passwordInput;
 
-    @FindBy(xpath = "//*[@class='bigButton__big-button--ivY7j bigButton__rounded-corners--3wKBL bigButton__color-organish--4iYXy']")
+    @FindBy(xpath = "//*[@class='gb_pa gb_md gb_Od gb_me']")
     private WebElement loginButton;
 
     public void enterTextToLoginField(final String loginText) {
@@ -32,7 +34,13 @@ public class LoginPage extends BasePage {
         passwordInput.sendKeys(password);
     }
 
-    public void setLoginButton(){
+    public void clickLoginButton(){
         loginButton.click();
+    }
+    public void clickNextButton(){
+        nextButton.click();
+    }
+    public WebElement getPasswordInput(){
+        return passwordInput;
     }
 }
