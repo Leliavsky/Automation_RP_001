@@ -21,8 +21,11 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//input[@name='Passwd']")
     private WebElement passwordInput;
 
-    @FindBy(xpath = "//*[@class='gb_pa gb_md gb_Od gb_me']")
+    @FindBy(xpath = "//*[@class='gb_Od']")
     private WebElement loginButton;
+
+    @FindBy(xpath = "//div[@class='gb_z gb_A'][1]")
+    private WebElement gmailButton;
 
     public void enterTextToLoginField(final String loginText) {
         loginLine.clear();
@@ -37,10 +40,17 @@ public class LoginPage extends BasePage {
     public void clickLoginButton(){
         loginButton.click();
     }
+
+    public void clickOnGmailButton(){
+        gmailButton.click();
+    }
     public void clickNextButton(){
         nextButton.click();
     }
     public WebElement getPasswordInput(){
         return passwordInput;
+    }
+    public WebElement getGmailButton(){
+        return gmailButton;
     }
 }

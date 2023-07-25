@@ -1,25 +1,32 @@
 package stepdefinitions;
 
+import business.pages.GmailPage;
 import business.pages.LoginPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import business.manager.PageFactoryManager;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
+import java.util.Set;
 
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
+import static org.junit.Assert.assertEquals;
 
 public class DefinitionSteps {
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(60);
+    private static final String EXPECTED_URL = "https://mail.google.com/mail/u/0/#inbox";
 
     WebDriver driver;
     PageFactoryManager pageFactoryManager;
     LoginPage loginPage;
+    GmailPage gmailPage;
 
     @Before
     public void testsSetUp() {
@@ -43,7 +50,6 @@ public class DefinitionSteps {
 
     @When("User introduces login {string}")
     public void userIntroducesLogin(final String keyword) {
-        loginPage = pageFactoryManager.getLoginPage();
         loginPage.enterTextToLoginField(keyword);
     }
 
@@ -68,4 +74,35 @@ public class DefinitionSteps {
         driver.close();
     }
 
+    @And("User clicks on Gmail button")
+    public void userClicksOnGmailButton() {
+        loginPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, loginPage.getGmailButton());
+        loginPage.clickOnGmailButton();
+    }
+
+    @And("clicks on Write button")
+    public void clicksOnWriteButton() {
+        gmailPage = pageFactoryManager.getGmailPage();
+        gmailPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
+        gmailPage.clickOnWriteButton();
+    }
+
+    @Then("Verify success login")
+    public void verifySuccessLogin() {
+        assertEquals(driver.getCurrentUrl(),EXPECTED_URL);
+    }
+
+    @And("Create a new mail")
+    public void createANewMail() {
+        sleep(3);
+        gmailPage.implicitWait(3000);
+        gmailPage.enterEmailOfRecipient("test@gmail.com");
+        gmailPage.enterSubject("test");
+        gmailPage.enterBody("Hello");
+    }
+
+    @And("click on close button")
+    public void clickOnCloseButton() {
+        gmailPage.clickOnCloseButton();
+    }
 }

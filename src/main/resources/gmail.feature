@@ -8,6 +8,11 @@ Feature: Gmail
     And User clicks on Next button
     And User write password '<password>'
     And User clicks on Next button
+    And User clicks on Gmail button
+    Then Verify success login
+    And clicks on Write button
+    And Create a new mail
+    And click on close button
 
     Examples:
       | loginPage              | keyword               | password       |

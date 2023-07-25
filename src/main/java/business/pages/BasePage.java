@@ -1,5 +1,6 @@
 package business.pages;
 
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
@@ -36,5 +38,9 @@ public class BasePage {
     public void waitForAjaxToComplete(Duration timeToWait) {
         new WebDriverWait(driver, timeToWait).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return window.jQuery != undefined && jQuery.active == 0;"));
+    }
+
+    public static Set<Cookie> getAllCookies(WebDriver driver) {
+        return driver.manage().getCookies();
     }
 }
