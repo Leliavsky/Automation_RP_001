@@ -23,8 +23,8 @@ public class BasePage {
     }
 
     public void implicitWait(long timeToWait) {
-        driver.manage().timeouts().pageLoadTimeout(10000,
-                TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().pageLoadTimeout(timeToWait,
+                TimeUnit.SECONDS);
     }
 
     public void waitForPageLoadComplete(Duration timeToWait) {

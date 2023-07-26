@@ -66,6 +66,7 @@ public class DefinitionSteps {
 
     @And("User clicks on Next button")
     public void userClicksOnNextButton() {
+        loginPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, loginPage.getNextButton());
         loginPage.clickNextButton();
     }
 
@@ -94,8 +95,7 @@ public class DefinitionSteps {
 
     @And("Create a new mail")
     public void createANewMail() {
-        sleep(3);
-        gmailPage.implicitWait(3000);
+        gmailPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, gmailPage.getGmailField());
         gmailPage.enterEmailOfRecipient("test@gmail.com");
         gmailPage.enterSubject("test");
         gmailPage.enterBody("Hello");
@@ -104,5 +104,19 @@ public class DefinitionSteps {
     @And("click on close button")
     public void clickOnCloseButton() {
         gmailPage.clickOnCloseButton();
+    }
+
+    @And("click on draft section")
+    public void clickOnDraftSection() {
+        gmailPage.clickOnDraftField();
+    }
+
+    @Then("Verify draft mail present")
+    public void verifyDraftMailPresent() {
+        gmailPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, gmailPage.getDraftEmailField());
+        gmailPage.clickOnDraftEmail();
+        sleep(1);
+        System.out.println(gmailPage.getEmailText());
+        assertEquals(gmailPage.getEmailText(),"test@gmail.com");
     }
 }

@@ -13,6 +13,8 @@ Feature: Gmail
     And clicks on Write button
     And Create a new mail
     And click on close button
+    And click on draft section
+    Then Verify draft mail present
 
     Examples:
       | loginPage              | keyword               | password       |

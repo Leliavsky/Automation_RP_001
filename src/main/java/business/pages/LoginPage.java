@@ -53,4 +53,7 @@ public class LoginPage extends BasePage {
     public WebElement getGmailButton(){
         return gmailButton;
     }
+    public WebElement getNextButton(){
+        return nextButton;
+    }
 }
