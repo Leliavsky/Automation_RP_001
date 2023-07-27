@@ -18,10 +18,12 @@ import java.util.Set;
 
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DefinitionSteps {
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(60);
     private static final String EXPECTED_URL = "https://mail.google.com/mail/u/0/#inbox";
+    private static final String EXPECTED_TEXT = "Немає жодної збереженої чернетки.\nУ чернетках зберігаються повідомлення, які ви ще не готові надіслати.";
 
     WebDriver driver;
     PageFactoryManager pageFactoryManager;
@@ -116,7 +118,27 @@ public class DefinitionSteps {
         gmailPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, gmailPage.getDraftEmailField());
         gmailPage.clickOnDraftEmail();
         sleep(1);
-        System.out.println(gmailPage.getEmailText());
         assertEquals(gmailPage.getEmailText(),"test@gmail.com");
+        assertEquals(gmailPage.getDraftBodyText(),"Hello");
+    }
+
+    @And("click on sent the email and verify empty draft")
+    public void clickOnSentTheEmail() {
+        gmailPage.clickOnSentEmailButton();
+        assertEquals(gmailPage.getEmptyDraftFieldText(), EXPECTED_TEXT);
+    }
+
+    @And("click on sent field to verify that email is sent")
+    public void clickOnSentFieldToVerifyThatEmailIsSent() {
+        gmailPage.clickOnSentField();
+        sleep(2);
+        gmailPage.waitNotVisibilityOfElement(DEFAULT_TIMEOUT, gmailPage.getElement());
+
+    }
+
+    @Then("Log off")
+    public void logOff() {
+        driver.get("https://accounts.google.com/Logout?hl=uk&continue=https://mail.google.com&service=mail&timeStmp=1690467949&secTok=.AG5fkS-gHF60lhhINaxOYGG746bh6kOEiw&ec=GAdAFw&hl=uk");
+        gmailPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
     }
 }

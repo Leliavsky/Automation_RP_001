@@ -15,6 +15,9 @@ Feature: Gmail
     And click on close button
     And click on draft section
     Then Verify draft mail present
+    And click on sent the email and verify empty draft
+    And click on sent field to verify that email is sent
+    Then Log off
 
     Examples:
       | loginPage              | keyword               | password       |
