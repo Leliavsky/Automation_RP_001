@@ -117,7 +117,7 @@ public class DefinitionSteps {
     public void verifyDraftMailPresent() {
         gmailPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, gmailPage.getDraftEmailField());
         gmailPage.clickOnDraftEmail();
-        sleep(1);
+        gmailPage.implicitWait(5);
         assertEquals(gmailPage.getEmailText(),"test@gmail.com");
         assertEquals(gmailPage.getDraftBodyText(),"Hello");
     }
@@ -131,7 +131,7 @@ public class DefinitionSteps {
     @And("click on sent field to verify that email is sent")
     public void clickOnSentFieldToVerifyThatEmailIsSent() {
         gmailPage.clickOnSentField();
-        sleep(2);
+        gmailPage.implicitWait(5);
         gmailPage.waitNotVisibilityOfElement(DEFAULT_TIMEOUT, gmailPage.getElement());
 
     }
