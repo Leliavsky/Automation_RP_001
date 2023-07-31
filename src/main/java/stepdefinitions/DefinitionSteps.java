@@ -2,6 +2,8 @@ package stepdefinitions;
 
 import business.pages.GmailPage;
 import business.pages.LoginPage;
+import business.pages.SearchingPage;
+import business.pages.WikipediaPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -10,6 +12,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import business.manager.PageFactoryManager;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -24,11 +27,15 @@ public class DefinitionSteps {
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(60);
     private static final String EXPECTED_URL = "https://mail.google.com/mail/u/0/#inbox";
     private static final String EXPECTED_TEXT = "Немає жодної збереженої чернетки.\nУ чернетках зберігаються повідомлення, які ви ще не готові надіслати.";
+    private static final String EXPECTED_WRONG_PASSWORD_TEXT = "Неправильний пароль. Повторіть спробу або натисніть \"Забули пароль?\", щоб скинути його.";
+    private static final String EXPECTED_WIKI_TITLE_TEXT = "Зеленський Володимир Олександрович";
 
     WebDriver driver;
     PageFactoryManager pageFactoryManager;
     LoginPage loginPage;
     GmailPage gmailPage;
+    SearchingPage searchingPage;
+    WikipediaPage wikipediaPage;
 
     @Before
     public void testsSetUp() {
@@ -140,5 +147,37 @@ public class DefinitionSteps {
     public void logOff() {
         driver.get("https://accounts.google.com/Logout?hl=uk&continue=https://mail.google.com&service=mail&timeStmp=1690467949&secTok=.AG5fkS-gHF60lhhINaxOYGG746bh6kOEiw&ec=GAdAFw&hl=uk");
         gmailPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
+    }
+
+    @And("Verify messages is displayed")
+    public void verifyMessagesIsDisplayed() {
+        loginPage.implicitWait(5);
+        assertEquals(loginPage.getTextIncorrectPasswordField(),EXPECTED_WRONG_PASSWORD_TEXT);
+    }
+
+    @And("User writes {string} in the search field")
+    public void userWritesTextInTheSearchField(final String text) {
+        loginPage.enterTextToSearchField(text);
+    }
+
+    @And("Click on autocomplete hint text")
+    public void clickOnAutocompleteHintText() {
+        loginPage.implicitWait(3);
+        loginPage.clickOnAutocompleteSearchingText();
+        loginPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
+    }
+
+    @And("Move to search results by Google, find wikipedia")
+    public void moveToSearchResultsByGoogleFindWikipedia() {
+        searchingPage = pageFactoryManager.getSearchingPage();
+        searchingPage.scrollMove(driver,800);
+        searchingPage.getElementOfWikipedia().click();
+        searchingPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
+    }
+
+    @Then("Check page title")
+    public void checkPageTitle() {
+        wikipediaPage = pageFactoryManager.getWikipediaPage();
+        assertEquals(wikipediaPage.getTextFromTitle(), EXPECTED_WIKI_TITLE_TEXT);
     }
 }

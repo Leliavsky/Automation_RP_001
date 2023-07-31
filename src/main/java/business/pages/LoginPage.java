@@ -27,6 +27,15 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//div[@class='gb_z gb_A'][1]")
     private WebElement gmailButton;
 
+    @FindBy(xpath = "//div[@class='OyEIQ uSvLId']//div[@jsname='B34EJ']")
+    private WebElement incorrectPasswordField;//textarea[@class='gLFyf']
+
+    @FindBy(xpath = "//textarea[@class='gLFyf']")
+    private WebElement searchingField;//div[@id='jZ2SBf']
+
+    @FindBy(xpath = "//div[@id='jZ2SBf']")
+    private WebElement autocompleteField;
+
     public void enterTextToLoginField(final String loginText) {
         loginLine.clear();
         loginLine.sendKeys(loginText);
@@ -55,5 +64,16 @@ public class LoginPage extends BasePage {
     }
     public WebElement getNextButton(){
         return nextButton;
+    }
+    public String getTextIncorrectPasswordField(){
+        return incorrectPasswordField.getText();
+    }
+
+    public void enterTextToSearchField(final String searchText) {
+        searchingField.clear();
+        searchingField.sendKeys(searchText);
+    }
+    public void clickOnAutocompleteSearchingText(){
+        autocompleteField.click();
     }
 }

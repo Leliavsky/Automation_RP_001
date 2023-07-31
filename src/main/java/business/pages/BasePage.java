@@ -1,6 +1,7 @@
 package business.pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,6 +40,16 @@ public class BasePage {
     public void waitForAjaxToComplete(Duration timeToWait) {
         new WebDriverWait(driver, timeToWait).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return window.jQuery != undefined && jQuery.active == 0;"));
+    }
+
+    public void moveToElement(WebElement element) {
+        Actions action = new Actions(driver);
+        action.moveToElement(element).perform();
+    }
+
+    public void scrollMove(WebDriver driver, int pixels) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, arguments[0])", pixels);
     }
 
     public static Set<Cookie> getAllCookies(WebDriver driver) {
