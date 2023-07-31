@@ -11,17 +11,16 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import business.manager.PageFactoryManager;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
-import java.util.Set;
+
 
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
+import static org.testng.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
 
 public class DefinitionSteps {
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(60);
@@ -170,7 +169,7 @@ public class DefinitionSteps {
     @And("Move to search results by Google, find wikipedia")
     public void moveToSearchResultsByGoogleFindWikipedia() {
         searchingPage = pageFactoryManager.getSearchingPage();
-        searchingPage.scrollMove(driver,800);
+        searchingPage.scrollMove(driver,1000);
         searchingPage.getElementOfWikipedia().click();
         searchingPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
     }

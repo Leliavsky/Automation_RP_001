@@ -1,16 +1,20 @@
 package runner;
 
-import org.junit.runner.RunWith;
 
 import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
+//import io.cucumber.junit.CucumberOptions;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
+import org.testng.TestNG;
+
+import java.util.Collections;
 
 
-@RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/main/resources/gmail.feature",
-        glue = "stepdefinitions"
+        glue = "stepdefinitions",
+        plugin = {"pretty", "html:target/cucumber-reports"}
 )
-public class RunnerTests {
+public class RunnerTests extends AbstractTestNGCucumberTests {
 
 }
